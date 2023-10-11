@@ -100,13 +100,16 @@ def zscore_unnormalize_features(X_norm, mu, sigma):
 if __name__ == "__main__":
     # prepare data
     data = np.genfromtxt('Real estate.csv', delimiter=',',skip_header=1)
+    polynomial_features = np.c_[data[:, :-1], data[:, :-1] ** 2, data[:, :-1] ** 3, data[:, :-1] ** 4, data[:, :-1] ** 5, data[:,:-1] ** 6]
+    data = np.c_[polynomial_features, data[:, -1]]
     data ,mu,sigma = zscore_normalize_features(data)
+
     training_data,testing_data = np.split(data, [int(0.8*len(data))])
     # init parameters
-    alpha = 3.0e-7
-    number_of_iterations = 30_000
+    alpha = 3.0e-2
+    number_of_iterations = 10_000
     #fit model
-    model = fit(training_data[:, :-1], training_data[:, -1], alpha, number_of_iterations)
+    model = fit(training_data[:, :-1] , training_data[:, -1], alpha, number_of_iterations)
     targets = testing_data[:, -1]
     #test model
     predicted_targets = predict(model, testing_data[:, :-1])
@@ -116,10 +119,10 @@ if __name__ == "__main__":
     fig, (ax1, ax2) = plt.subplots(1, 2, constrained_layout=True, figsize=(12, 4))
     ax1.plot(model.cost_history)
     ax2.plot(100 + np.arange(len(model.cost_history)), model.cost_history)
-    ax1.set_title("Cost vs. iteration");
+    ax1.set_title("Cost vs. iteration")
     ax2.set_title("Cost vs. iteration (tail)")
-    ax1.set_ylabel('Cost');
+    ax1.set_ylabel('Cost')
     ax2.set_ylabel('Cost')
-    ax1.set_xlabel('iteration step');
+    ax1.set_xlabel('iteration step')
     ax2.set_xlabel('iteration step')
     plt.show()
