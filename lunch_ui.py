@@ -57,7 +57,7 @@ with gr.Blocks() as demo:
                                     )
         with gr.Column():
             predict_btn = gr.Button("Predict Value")
-            Prediction = gr.TextArea(label="Text", interactive=False,
+            Prediction = gr.TextArea(label="Output", interactive=False,
                                  placeholder="Predicted house price of unit area",)
     train_btn.click(train_and_save,inputs=[model_type], outputs=[outputimage])
     load_btn.click(load_model,inputs=[model_type], outputs=[outputimage])
