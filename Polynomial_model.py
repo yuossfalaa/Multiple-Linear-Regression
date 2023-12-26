@@ -23,10 +23,11 @@ def Train():
     # split data
     training_data, testing_data = np.split(data, [int(0.8 * len(data))])
     # init parameters
-    alpha = 0.0003
-    number_of_iterations = 15_000
+    alpha = 0.001
+    _lambda = 0.06
+    number_of_iterations = 11_000
     # fit model
-    model = fit(training_data[:, :-1], training_data[:, -1], alpha, number_of_iterations)
+    model = fit(training_data[:, :-1], training_data[:, -1], alpha, number_of_iterations,_lambda)
     model.x_mu =x_mu
     model.x_sigma =x_sigma
     model.y_mu =y_mu
@@ -34,6 +35,7 @@ def Train():
     model.save("polynomial_model.json")
     print("Model Saved")
     show_history(model)
+    return model
 def show_history(model):
     # examin cost history
     fig, (ax1, ax2) = plt.subplots(1, 2, constrained_layout=True, figsize=(12, 4))
