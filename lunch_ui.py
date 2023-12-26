@@ -46,19 +46,19 @@ with gr.Blocks() as demo:
 
     with gr.Row():
         with gr.Column():
-            textbox = gr.Textbox(label="Text",interactive=True,
-                                  placeholder="Type your sentence here",
-                                  value="Welcome back, Master. What can I do for you today?")
-            textbox1 = gr.Textbox(label="Text",interactive=True,
-                                   placeholder="Type your sentence here",
-                                   value="Welcome back, Master. What can I do for you today?")
-            textbox2 = gr.Textbox(label="Text",interactive=True,
-                                   placeholder="Type your sentence here",
-                                   value="Welcome back, Master. What can I do for you today?")
+            feature1 = gr.Textbox(label="input",interactive=True,
+                                  placeholder="house age",
+                                 )
+            feature2 = gr.Textbox(label="input",interactive=True,
+                                   placeholder="distance to the nearest MRT station",
+                                    )
+            feature3 = gr.Textbox(label="input",interactive=True,
+                                   placeholder="number of convenience stores",
+                                    )
         with gr.Column():
             predict_btn = gr.Button("Predict Value")
-            textbox4 = gr.TextArea(label="Text", interactive=False,
-                                 placeholder="Predicted Value",)
+            Prediction = gr.TextArea(label="Text", interactive=False,
+                                 placeholder="Predicted house price of unit area",)
     train_btn.click(train_and_save,inputs=[model_type], outputs=[outputimage])
     load_btn.click(load_model,inputs=[model_type], outputs=[outputimage])
 
