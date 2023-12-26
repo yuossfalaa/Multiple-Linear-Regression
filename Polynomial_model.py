@@ -31,7 +31,7 @@ def Train():
     model.x_sigma =x_sigma
     model.y_mu =y_mu
     model.y_sigma =y_sigma
-    model.save("multi_liner_model.json")
+    model.save("polynomial_model.json")
     print("Model Saved")
     show_history(model)
 def show_history(model):
