@@ -5,6 +5,7 @@ class Model:
         self.weight = weight
         self.bias = bias
         self.cost_history = cost_history
+        self.polynomials = []
         self.x_mu = None
         self.x_sigma = None
         self.y_mu = None
@@ -15,6 +16,7 @@ class Model:
             "weight": self.weight.tolist(),
             "bias": self.bias,
             "cost_history": self.cost_history,
+            "polynomials": self.polynomials,
             "x_mu": self.x_mu.tolist(),
             "x_sigma": self.x_sigma.tolist(),
             "y_mu": self.y_mu.tolist(),
@@ -30,6 +32,7 @@ class Model:
         self.weight = np.array(data["weight"])
         self.bias = data["bias"]
         self.cost_history = data["cost_history"]
+        self.polynomials = data["polynomials"]
         self.x_mu = np.array(data["x_mu"])
         self.x_sigma = np.array(data["x_sigma"])
         self.y_mu = np.array(data["y_mu"])

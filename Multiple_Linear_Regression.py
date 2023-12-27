@@ -37,7 +37,7 @@ def compute_cost(features, targets, weight, bias, _lambda=1) -> float:
     cost = cost / (2 * num_of_training_data)
     reg_cost = 0
     for j in range(num_of_features):
-        reg_cost += (weight[j] ** 2)  # scalar
+        reg_cost += (weight[j] ** 2)
     reg_cost = (_lambda / (2 * num_of_training_data)) * reg_cost
 
     total_cost = cost + reg_cost
@@ -71,9 +71,19 @@ def fit(features, targets, alpha, number_of_iterations,_lambda=1) -> Model:
 
     return model
 
+def generate_polynomial_features(poly_coeffs, features):
+    result = []
+    result.extend(features)
+    for coeff in poly_coeffs:
+        result.extend(np.power(features, coeff))
 
+    return np.array(result)
 def predict(model: Model, features):
-    targets = np.dot(features, model.weight) + model.bias
+    if model.polynomials and len(model.polynomials) !=0:
+        features = generate_polynomial_features(model.polynomials,features)
+    norm_features = zscore_normalize_features_with_parm(features,model.x_mu,model.x_sigma)
+    norm_targets = np.dot(norm_features, model.weight) + model.bias
+    targets = zscore_unnormalize_features(norm_targets,model.y_mu,model.y_sigma)
     return targets
 
 
@@ -87,6 +97,10 @@ def zscore_normalize_features(data):
 
     return (data_norm, mu, sigma)
 
+def zscore_normalize_features_with_parm(data,mu, sigma):
+    data_norm = (data - mu) / sigma
+
+    return data_norm
 
 def zscore_unnormalize_features(data_norm, mu, sigma):
     # element-wise, multiply by std for that column, add mu for that column
