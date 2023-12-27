@@ -18,11 +18,12 @@ def Train():
     training_data, testing_data = np.split(data, [int(0.8 * len(data))])
     # init parameters
     alpha = 0.001
-    _lambda = 0.06
+    _lambda = 3
     number_of_iterations = 11_000
     # fit model
     model = fit(training_data[:, :-1], training_data[:, -1], alpha, number_of_iterations,_lambda)
     model.polynomials = []
+    model._lambda = _lambda
     model.x_mu =x_mu
     model.x_sigma =x_sigma
     model.y_mu =y_mu
