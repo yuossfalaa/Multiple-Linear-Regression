@@ -69,7 +69,7 @@ with gr.Blocks() as demo:
                                   )
         with gr.Column():
             predict_btn = gr.Button("Predict Value")
-            Prediction = gr.TextArea(label="Output", interactive=False,
+            Prediction = gr.TextArea(label="Predicted Value", interactive=False,
                                      placeholder="Predicted house price of unit area", )
         def predict(feature1, feature2, feature3):
             return Multiple_Linear_Regression.predict(model, np.array(
